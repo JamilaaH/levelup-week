@@ -14,22 +14,22 @@ class TagSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('tags')->insert([
-            [
-                'user_id'=>1,
-                "nom"=>"web",
-                'created_at'=>now(),
-            ],
-            [
-                'user_id'=>1,
-                "nom"=>"design",
-                'created_at'=>now(),
-            ],
-            [
-                'user_id'=>1,
-                "nom"=>"photo",
-                'created_at'=>now(),
-            ],
-        ]);
+        // DB::table('tags')->insert([
+        //     [
+        //         'user_id'=>1,
+        //         "nom"=>"web",
+        //         'created_at'=>now(),
+        //     ],
+        //     [
+        //         'user_id'=>1,
+        //         "nom"=>"design",
+        //         'created_at'=>now(),
+        //     ],
+        //     [
+        //         'user_id'=>1,
+        //         "nom"=>"photo",
+        //         'created_at'=>now(),
+        //     ],
+        // ]);
     }
 }

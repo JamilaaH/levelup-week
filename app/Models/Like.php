@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Like extends Model
 {
     use HasFactory;
+
+    public function note()
+    {
+        return $this->belongsTo(Note::class);
+    }
 }

@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class TagnoteSeeder extends Seeder
+class LikeSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,6 +14,9 @@ class TagnoteSeeder extends Seeder
      */
     public function run()
     {
-        //
+        // DB::table('likes')->insert([
+        //     'user_id'=>2,
+        //     'note_id'=>2,
+        // ]);
     }
 }
