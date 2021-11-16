@@ -3,11 +3,20 @@
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Mes notes') }}
         </h2>
-        <span>
-            <button class="px-4 py-2 rounded-md text-sm font-medium border-b-2 focus:outline-none focus:ring transition text-white bg-purple-500 border-purple-800 hover:bg-purple-600 active:bg-purple-700 focus:ring-purple-300">Ajouter une note</button>
+        <span  x-data="{ simple : false }">
+            @empty(Auth::user()->tags)
+                créer d'abord un tag
+                <a href="{{route('create.tag')}}">tag</a>
+            @endempty
+            @if (!empty(Auth::user()->tags))
+                    <!-- Button -->
+                    <button @click="simple = !simple" class="bg-blue-400 text-white font-bold px-4 py-2 text-sm uppercase rounded tracking-wider focus:outline-none hover:bg-blue-500">Mes Tags</button>
+            
+                    @include('partials.modal.tag')
+                <button class="px-4 py-2 rounded-md text-sm font-medium border-b-2 focus:outline-none focus:ring transition text-white bg-purple-500 border-purple-800 hover:bg-purple-600 active:bg-purple-700 focus:ring-purple-300">Ajouter une note</button>
+            @endif
         </span>
     </x-slot>
-
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <table class="min-w-full border-collapse block md:table">

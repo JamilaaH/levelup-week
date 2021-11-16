@@ -5,11 +5,18 @@
             aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <a class="navbar-text " href="{{route('login')}}">
-            <button class="btn btn-success text-white">
-                Se Connecter
-            </button>
-            </a>
+        @guest
+            <a class="navbar-text " href="{{route('login')}}">
+                <button class="btn btn-success text-white">
+                    Se Connecter
+                </button>
+                </a>            
+            @endguest
+                <a class="navbar-text " href="{{route('login')}}">
+                    <button class="btn btn-success text-white">
+                        Se Connecter
+                    </button>
+                    </a>            
         </div>
     </div>
 </nav>

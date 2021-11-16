@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\NoteController;
+use App\Http\Controllers\TagController;
 use App\Models\Note;
 use App\Models\Tag;
 use Illuminate\Support\Facades\Route;
@@ -31,4 +32,11 @@ Route::get('/dashboard', function () {
 
 require __DIR__.'/auth.php';
 
-Route::get('/notes-likes', [NoteController::class, 'likes'])->name('like.index');
+Route::middleware(['auth'])->group(function() {
+    Route::get('/notes-likes', [NoteController::class, 'likes'])->name('like.index');
+    //tag
+    Route::get('/creer-tag', [TagController::class, 'create'])->name('create.tag');
+    Route::post('/store-tag', [TagController::class, 'store'])->name('store.tag');
+    Route::get('/edit-tag/{id}', [TagController::class, 'edit'])->name('edit.tag');
+    Route::put('/update-tag/{id}', [TagController::class, 'update'])->name('update.tag');
+});
