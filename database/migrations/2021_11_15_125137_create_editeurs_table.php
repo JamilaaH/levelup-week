@@ -16,7 +16,8 @@ class CreateEditeursTable extends Migration
         Schema::create('editeurs', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
-            $table->foreignId('note_id')->constrained();
+            $table->unsignedBigInteger('note_id');
+            $table->foreign('note_id')->references('id')->on('notes')->onDelete('cascade');
             $table->timestamps();
         });
     }

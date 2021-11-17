@@ -42,6 +42,9 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/show-note/{id}', [NoteController::class, 'show'])->name('show.note');
     Route::delete('/delete-note/{id}', [NoteController::class, 'destroy'])->name('destroy.note');
 
+    //partage notes 
+    Route::post('/share/{id}', [NoteController::class, 'share'])->name('share');
+
     // bouton J'aime
     Route::post('/like/{id}' , [NoteController::class, 'like'])->name('like');
     Route::delete('/dislike/{id}' , [NoteController::class, 'dislike'])->name('dislike');

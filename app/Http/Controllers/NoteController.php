@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Editeur;
 use App\Models\Like;
 use App\Models\Note;
 use App\Models\Tag;
 use App\Models\Tagnote;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -60,14 +62,22 @@ class NoteController extends Controller
         $note->user_id = Auth::user()->id;
         $note->save();
         // ecrire l'update du tag
-        
+        $oldtag = Tagnote::where('note_id', $note->id)->first();
+        $oldtag->delete();
+        $newtag = new Tagnote();
+        $newtag->note_id = $note->id;
+        $newtag->tag_id = $request->tag;
+        $newtag->save();
+        return redirect()->route('dashboard');
+
     }
 
     
     public function show(Note $id)
     {
         $note = $id;
-        return view ('back.notes.show', compact('note'));
+        $meslikes = Like::all()->where('note_id', $note->id);
+        return view ('back.notes.show', compact('note', 'meslikes'));
     }
 
     public function destroy(Note $id)
@@ -92,6 +102,17 @@ class NoteController extends Controller
         $note = $id;
         $like = Like::where('note_id', $note->id)->where('user_id', Auth::user()->id)->first();
         $like->delete();
+        return redirect()->back();
+    }
+
+    public function share(Note $id, Request $request)
+    {
+
+        $note = $id;
+        $editeur = new Editeur();
+        $editeur->user_id = $request->share;
+        $editeur->note_id = $note->id;
+        $editeur->save();
         return redirect()->back();
     }
 }

@@ -15,8 +15,10 @@ class CreateTagnotesTable extends Migration
     {
         Schema::create('note_tags', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('note_id')->constrained();
-            $table->foreignId('tag_id')->constrained();
+            $table->unsignedBigInteger('note_id');
+            $table->foreign('note_id')->references('id')->on('notes')->onDelete('cascade');
+            $table->unsignedBigInteger('tag_id');
+            $table->foreign('tag_id')->references('id')->on('tags')->onDelete('cascade');
             $table->timestamps();
         });
     }
