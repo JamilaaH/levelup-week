@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NoteController;
 use App\Http\Controllers\TagController;
 use App\Models\Note;
@@ -17,14 +18,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    $notes = Note::all();
-    $tags = Tag::all();
-    return view('home', compact('notes', 'tags'));
-});
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', [HomeController::class, 'home'])->name('home');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -39,4 +33,12 @@ Route::middleware(['auth'])->group(function() {
     Route::post('/store-tag', [TagController::class, 'store'])->name('store.tag');
     Route::get('/edit-tag/{id}', [TagController::class, 'edit'])->name('edit.tag');
     Route::put('/update-tag/{id}', [TagController::class, 'update'])->name('update.tag');
+    Route::delete('/delete-tag/{id}', [TagController::class, 'destroy'])->name('destroy.tag');
+    //notes
+    Route::get('/creer-note', [NoteController::class, 'create'])->name('create.note');
+    Route::post('/store-note', [NoteController::class, 'store'])->name('store.note');
+    Route::get('/edit-note/{id}', [NoteController::class, 'edit'])->name('edit.note');
+    Route::put('/update-note/{id}', [NoteController::class, 'update'])->name('update.note');
+    Route::get('/show-note/{id}', [NoteController::class, 'show'])->name('show.note');
+    Route::delete('/delete-note/{id}', [NoteController::class, 'destroy'])->name('destroy.note');
 });

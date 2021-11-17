@@ -33,8 +33,12 @@
                         <td class="py-4 px-6 border-b border-grey-light">
                             <a href="{{route('edit.tag', $tag->id)}}"
                                 class="text-grey-lighter font-bold py-1 px-3 rounded text-xs bg-green hover:bg-green-dark">Edit</a>
-                            <a href="#"
-                                class="text-grey-lighter font-bold py-1 px-3 rounded text-xs bg-blue hover:bg-blue-dark">Delete</a>
+                            <form action="{{route('destroy.tag', $tag->id)}}" method="post">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit"
+                                    class="text-grey-lighter font-bold py-1 px-3 rounded text-xs bg-blue hover:bg-blue-dark">Delete</button>
+                            </form>
                         </td>
                     </tr>
                     
@@ -44,6 +48,7 @@
 
             <!-- Buttons -->
             <div class="text-right space-x-5 mt-5">
+                <a href="{{route('create.tag')}}" class="bg-green-600 text-white font-bold px-4 py-2 text-sm uppercase rounded tracking-wider focus:outline-none hover:bg-green-700 mt-3 mb-3 my-3">ajout</a>
                 <button @click="simple = !simple"
                     class="bg-red-600 text-white font-bold px-4 py-2 text-sm uppercase rounded tracking-wider focus:outline-none hover:bg-red-700 mt-3 mb-3 my-3">Cancel</button>
             </div>

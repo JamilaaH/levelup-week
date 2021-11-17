@@ -12,11 +12,14 @@
                 </button>
                 </a>            
             @endguest
-                <a class="navbar-text " href="{{route('login')}}">
+            @auth
+                <a class="navbar-text " href="{{route('dashboard')}}">
                     <button class="btn btn-success text-white">
-                        Se Connecter
+                        Dashboard
                     </button>
                     </a>            
+                
+            @endauth
         </div>
     </div>
 </nav>

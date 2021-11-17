@@ -40,4 +40,11 @@ class TagController extends Controller
         return redirect()->route('dashboard');
 
     }
+
+    public function destroy(Tag $id)
+    {
+        $tag = $id;
+        $tag->delete();
+        return redirect()->back();
+    }
 }

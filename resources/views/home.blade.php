@@ -19,7 +19,8 @@
     
                             </div>
                             <div class="mt-2">
-                                <p class="mt-2 text-gray-600">{{$note->post}}</p>
+                                <span class="text-2xl font-bold text-gray-700 hover:underline">{{$note->titre}}</span>
+                                <p class="mt-2 text-gray-600">{!! $note->post !!}</p>
                             </div>
                             <div class="flex items-center justify-around mt-4"><a href="#"
                                     class="text-green-500 hover:underline">Read more</a>
