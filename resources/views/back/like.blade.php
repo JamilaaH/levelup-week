@@ -19,7 +19,7 @@
                     
                     @forelse ($notes as $like)
                         <tr class="bg-gray-300 border border-grey-500 md:border-none block md:table-row">
-                            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell"><span class="inline-block w-2/3  ">{{$like->note->post}}</span> </td>
+                            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell"><span class="inline-block w-2/3  ">{!!$like->note->post!!}</span> </td>
                             <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell"><span class="inline-block w-2/3  ">{{$like->note->user->prenom}}</span></td>
                             <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell ">
                                 <span class="inline-block 1/3">

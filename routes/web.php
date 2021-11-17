@@ -27,7 +27,7 @@ Route::get('/dashboard', function () {
 require __DIR__.'/auth.php';
 
 Route::middleware(['auth'])->group(function() {
-    Route::get('/notes-likes', [NoteController::class, 'likes'])->name('like.index');
+    Route::get('/notes-likes', [NoteController::class, 'meslikes'])->name('like.index');
     //tag
     Route::get('/creer-tag', [TagController::class, 'create'])->name('create.tag');
     Route::post('/store-tag', [TagController::class, 'store'])->name('store.tag');
@@ -41,4 +41,8 @@ Route::middleware(['auth'])->group(function() {
     Route::put('/update-note/{id}', [NoteController::class, 'update'])->name('update.note');
     Route::get('/show-note/{id}', [NoteController::class, 'show'])->name('show.note');
     Route::delete('/delete-note/{id}', [NoteController::class, 'destroy'])->name('destroy.note');
+
+    // bouton J'aime
+    Route::post('/like/{id}' , [NoteController::class, 'like'])->name('like');
+    Route::delete('/dislike/{id}' , [NoteController::class, 'dislike'])->name('dislike');
 });

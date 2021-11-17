@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Like;
 use App\Models\Note;
 use App\Models\Tag;
 use App\Models\Tagnote;
@@ -10,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 
 class NoteController extends Controller
 {
-    public function likes()
+    public function meslikes()
     {
         $notes = Auth::user()->likes;
         return view('back.like', compact('notes'));
@@ -73,6 +74,24 @@ class NoteController extends Controller
     {
         $note = $id;
         $note->delete();
+        return redirect()->back();
+    }
+
+    public function like(Note $id)
+    {
+        $note = $id;
+        $like = new Like();
+        $like->note_id = $note->id;
+        $like->user_id = Auth::user()->id;
+        $like->save();
+        return redirect()->back();
+    }
+
+    public function dislike(Note $id)
+    {
+        $note = $id;
+        $like = Like::where('note_id', $note->id)->where('user_id', Auth::user()->id)->first();
+        $like->delete();
         return redirect()->back();
     }
 }
