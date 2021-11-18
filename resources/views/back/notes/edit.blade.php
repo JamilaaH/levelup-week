@@ -4,8 +4,11 @@
             {{ __('Modifier la note') }}
         </h2>
     </x-slot>
+    @php
+        $route =  Route::currentRouteName();
+    @endphp
     <div class="px-20">
-        <form action="{{route('update.note', $note->id)}}" method="post"  class="my-5">
+        <form action="{{$route == "edit.note" ? route('update.note', $note->id) : route('update.share', $note->id)  }}" method="post"  class="my-5">
             @csrf
             @method('PUT')
             <div class="sm:flex pt-5">

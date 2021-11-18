@@ -1,25 +1,8 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Mes notes') }}
+            {{ __('Notes partagées') }}
         </h2>
-        <span x-data="{ simple : false }">
-            @if (Auth::user()->tags->isEmpty())
-                créer d'abord un tag
-                <a href="{{ route('create.tag') }}"
-                    class="bg-blue-400 text-white font-bold px-2 py-1 text-sm uppercase rounded tracking-wider focus:outline-none hover:bg-blue-500">+</a>
-            @endempty
-            @if (Auth::user()->tags->isNotEmpty())
-                <!-- Button -->
-                <button @click="simple = !simple"
-                    class="bg-blue-400 text-white font-bold px-4 py-2 text-sm uppercase rounded tracking-wider focus:outline-none hover:bg-blue-500">Mes
-                    Tags</button>
-
-                @include('partials.modal.tag')
-                <a class="px-4 py-2 rounded-md text-sm font-medium border-b-2 focus:outline-none focus:ring transition text-white bg-purple-500 border-purple-800 hover:bg-purple-600 active:bg-purple-700 focus:ring-purple-300"
-                    href="{{ route('create.note') }}">Ajouter une note</a>
-            @endif
-    </span>
 </x-slot>
 <div class="py-12">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -32,14 +15,15 @@
                         Notes</th>
                     <th
                         class="bg-gray-600 p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">
-                        Likes</th>
+                        Auteur</th>
                     <th
                         class="bg-gray-600 p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">
                     </th>
                 </tr>
             </thead>
             <tbody class="block md:table-row-group">
-                @forelse (Auth::user()->notes as $note)
+
+                @forelse (Auth::user()->editeurs as $note)
                     <tr class="bg-gray-300 border border-grey-500 md:border-none block md:table-row">
                         <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell"><span
                                 class="inline-block w-2/3  ">
@@ -50,26 +34,16 @@
                                 class="inline-block w-1/3  ">{{ count($note->likes) > 0 ? count($note->likes) : '0' }}
                                 <i class="bi bi-heart-fill text-red-500 text-sm"></i> </span></td>
                         <td x-data="{ share : false }" class="p-2 md:border md:border-grey-500 text-left block md:table-cell w-1/3 flex">
-                            <a href="{{ route('edit.note', $note->id) }}"
+                            <a href="{{ route('edit.share', $note->id) }}"
                                 class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">edit</a>
                             <a href="{{ route('show.note', $note->id) }}"
                                 class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">show</a>
-                            <!-- Button -->
-                            <button @click="share = !share"
-                                class="bg-blue-500 text-white font-bold px-4 py-2 rounded tracking-wider focus:outline-none hover:bg-blue-500">share</button>
-                                @include('partials.modal.share')
-                            <form action="{{ route('destroy.note', $note->id) }}" method="post"
-                                class="mt-2">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class=" text-red-700 font-italic">delete</button>
-                            </form>
                         </td>
                     </tr>
                 @empty
                     <tr>
                         <td>
-                            Vous n'avez pas encore écrit de notes
+                            Vous n'avez pas de notes partagées
                         </td>
                     </tr>
                 @endforelse

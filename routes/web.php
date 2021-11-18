@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NoteController;
+use App\Http\Controllers\ShareController;
 use App\Http\Controllers\TagController;
 use App\Models\Note;
 use App\Models\Tag;
@@ -42,8 +43,12 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/show-note/{id}', [NoteController::class, 'show'])->name('show.note');
     Route::delete('/delete-note/{id}', [NoteController::class, 'destroy'])->name('destroy.note');
 
-    //partage notes 
+    //btn share notes 
     Route::post('/share/{id}', [NoteController::class, 'share'])->name('share');
+    //partagé avec moi
+    Route::get('/share-with-me', [ShareController::class, 'index'])->name("share.index");
+    Route::get('/share/edit-note/{id}', [ShareController::class, 'edit'])->name('edit.share');
+    Route::put('/share/update-note/{id}', [ShareController::class, 'update'])->name('update.share');
 
     // bouton J'aime
     Route::post('/like/{id}' , [NoteController::class, 'like'])->name('like');

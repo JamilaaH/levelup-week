@@ -61,4 +61,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Like::class);
     }
+
+    public function editeurs()
+    {
+        return $this->belongsToMany(Note::class, 'editeurs', 'user_id');
+    }
 }

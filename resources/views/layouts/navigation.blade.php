@@ -17,10 +17,13 @@
                         {{ __('Mes notes') }}
                     </x-nav-link>
                     <x-nav-link :href="route('like.index')" :active="request()->routeIs('like.index')">
-                        {{ __('Notes aimés') }}
+                        {{ __('Notes aimées') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('share.index')">
+                    <x-nav-link :href="route('share.index')" :active="request()->routeIs('share.index')">
                         {{ __('Partagé avec vous') }}
+                        @if (Auth::user()->editeurs->isNotEmpty())
+                            <span class="inline-block ml-2 w-2 h-2 mr-2 bg-red-600 rounded-full"></span>
+                        @endif
                     </x-nav-link>
                 </div>
             </div>

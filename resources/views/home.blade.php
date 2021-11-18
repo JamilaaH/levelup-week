@@ -1,9 +1,12 @@
 @extends('layouts.index')
 
 @section('content')
+@auth
     @php
         $likes = Auth::user()->likes;
     @endphp
+    
+@endauth
     <div class="px-6 py-8">
         <div class="container flex justify-between mx-auto">
             <div class="w-full lg:w-8/12">

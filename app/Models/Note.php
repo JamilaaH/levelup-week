@@ -26,6 +26,6 @@ class Note extends Model
 
     public function editeurs()
     {
-        return $this->belongsToMany(Editeur::class, );
+        return $this->hasMany(Editeur::class );
     }
 }

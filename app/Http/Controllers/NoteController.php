@@ -84,7 +84,7 @@ class NoteController extends Controller
     {
         $note = $id;
         $note->delete();
-        return redirect()->back();
+        return redirect()->route('dashboard');
     }
 
     public function like(Note $id)
