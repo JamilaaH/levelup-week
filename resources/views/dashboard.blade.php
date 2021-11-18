@@ -21,8 +21,9 @@
             @endif
     </span>
 </x-slot>
-<div class="py-12">
+<div class="lg:py-12">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        @include('layouts.flash')
         <table class="min-w-full border-collapse block md:table">
             <thead class="block md:table-header-group">
                 <tr
@@ -47,7 +48,7 @@
                                 {!! substr($note->post, 0, 200) !!} {{ strlen($note->post) > 200 ? '...' : '' }}
                             </span> </td>
                         <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell"><span
-                                class="inline-block w-1/3  ">{{ count($note->likes) > 0 ? count($note->likes) : '0' }}
+                                class="inline-block w-1/3  ">{{ $note->likes > 0 ? $note->likes : '0' }}
                                 <i class="bi bi-heart-fill text-red-500 text-sm"></i> </span></td>
                         <td x-data="{ share : false }" class="p-2 md:border md:border-grey-500 text-left block md:table-cell w-1/3 flex">
                             <a href="{{ route('edit.note', $note->id) }}"
@@ -68,8 +69,13 @@
                     </tr>
                 @empty
                     <tr>
-                        <td>
-                            Vous n'avez pas encore écrit de notes
+                        <td class="bg-gray-300 " colspan="3">
+                            <div class="flex content-center justify-items-center flex-col pb-3">
+                                <span>Vous n'avez pas encore écrit de notes</span>
+                                <img src="{{asset('img/empty.svg')}}" alt="" class="w-60 h-60 mx-auto">
+
+                            </div>
+
                         </td>
                     </tr>
                 @endforelse

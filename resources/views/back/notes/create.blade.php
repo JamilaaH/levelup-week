@@ -4,7 +4,7 @@
             {{ __('Nouvelle note') }}
         </h2>
     </x-slot>
-    <div class="px-20">
+    <div class="lg:px-20">
         <form action="{{route('store.note')}}" method="post"  class="my-5">
             @csrf
             <div class="sm:flex pt-5">

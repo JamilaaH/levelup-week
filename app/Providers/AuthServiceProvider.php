@@ -25,6 +25,8 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::define('isRealUser', function($online,$note ){
+            return $online->id == $note->user_id;
+        });
     }
 }

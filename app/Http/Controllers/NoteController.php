@@ -36,6 +36,7 @@ class NoteController extends Controller
         $note = new Note();
         $note->post = $request->editeur;
         $note->titre = $request->titre;
+        $note->likes = 0;
         $note->user_id = Auth::user()->id;
         $note->save();
 
@@ -43,7 +44,11 @@ class NoteController extends Controller
         $tag->note_id = $note->id;
         $tag->tag_id = $request->tag;
         $tag->save();
-        return redirect()->route('dashboard');
+
+        $user = User::where('id', Auth::user()->id)->first();
+        $user->role_id=3;
+        $user->save();
+        return redirect()->route('dashboard')->with('success', 'Nouvelle note créée');
     }
 
     public function edit(Note $id)
@@ -57,6 +62,7 @@ class NoteController extends Controller
     public function update(Note $id, Request $request)
     {
         $note = $id ;
+        $this->authorize('isRealUser', $note);
         $note->post = $request->editeur;
         $note->titre = $request->titre;
         $note->user_id = Auth::user()->id;
@@ -68,7 +74,7 @@ class NoteController extends Controller
         $newtag->note_id = $note->id;
         $newtag->tag_id = $request->tag;
         $newtag->save();
-        return redirect()->route('dashboard');
+        return redirect()->route('dashboard')->with('success', 'Note mise à jour');
 
     }
 
@@ -83,6 +89,7 @@ class NoteController extends Controller
     public function destroy(Note $id)
     {
         $note = $id;
+        $this->authorize('isRealUser', $note);
         $note->delete();
         return redirect()->route('dashboard');
     }
@@ -90,6 +97,9 @@ class NoteController extends Controller
     public function like(Note $id)
     {
         $note = $id;
+        $this->authorize('isRealUser', $note);
+        $note->likes = $note->likes+1;
+        $note->save();
         $like = new Like();
         $like->note_id = $note->id;
         $like->user_id = Auth::user()->id;
@@ -100,6 +110,9 @@ class NoteController extends Controller
     public function dislike(Note $id)
     {
         $note = $id;
+        $this->authorize('isRealUser', $note);
+        $note->likes = $note->likes-1;
+        $note->save();
         $like = Like::where('note_id', $note->id)->where('user_id', Auth::user()->id)->first();
         $like->delete();
         return redirect()->back();
@@ -107,12 +120,18 @@ class NoteController extends Controller
 
     public function share(Note $id, Request $request)
     {
-
         $note = $id;
-        $editeur = new Editeur();
-        $editeur->user_id = $request->share;
-        $editeur->note_id = $note->id;
-        $editeur->save();
-        return redirect()->back();
+        $this->authorize('isRealUser', $note);
+        if(Editeur::where('note_id', $note->id)->where('user_id', $request->share)->get()->isEmpty()) {
+            $note = $id;
+            $editeur = new Editeur();
+            $editeur->user_id = $request->share;
+            $editeur->note_id = $note->id;
+            $editeur->save();
+            return redirect()->back();
+
+        } else {            
+            return redirect()->back()->with('warning', "Vous l'avez déjà invité");
+        }
     }
 }

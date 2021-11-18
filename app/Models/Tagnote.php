@@ -9,4 +9,9 @@ class Tagnote extends Model
 {
     use HasFactory;
     protected $table = "note_tags";
+
+    public function note()
+    {
+        return $this->belongsTo(Note::class);
+    }
 }

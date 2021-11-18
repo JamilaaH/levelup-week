@@ -21,19 +21,30 @@
                         <tr class="bg-gray-300 border border-grey-500 md:border-none block md:table-row">
                             <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell"><span class="inline-block w-2/3  ">{!!$like->note->post!!}</span> </td>
                             <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell"><span class="inline-block w-2/3  ">{{$like->note->user->prenom}}</span></td>
-                            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell ">
-                                <span class="inline-block 1/3">
-                                    <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">del</button>
-                                </span>
+                            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell w-1/6">
+                                <span class="inline-block">
+                                    <a href="{{ route('show.note', $like->note_id) }}"
+                                        class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">show</a>
+        
+                                    <form action="{{route('dislike', $like->note_id)}}" method="post" class="mt-3">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit"> <i class="bi bi-suit-heart-fill text-danger"></i> Je n'aime plus </button>
+                                    </form>
+                            </span>
                             </td>
                         </tr>
                     @empty
-                        <tr>
-                            <td>
-                            
-                                Pas de notes aimées
-                            </td>
-                        </tr>
+                    <tr>
+                        <td class="bg-gray-300 " colspan="3">
+                            <div class="flex content-center justify-items-center flex-col pb-3">
+                                <span>Vous n'avez pas de notes aimées</span>
+                                <img src="{{asset('img/empty.svg')}}" alt="" class="w-60 h-60 mx-auto">
+
+                            </div>
+
+                        </td>
+                    </tr>
                     @endforelse
 
                 </tbody>

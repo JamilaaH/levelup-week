@@ -20,7 +20,7 @@
             <form action="{{route('share',$note->id )}}" method="post">
                 @csrf
                 <select name="share" id="share" class="bg-gray-50 border-1  rounded-r px-4 py-2 w-full">
-                    <option value="">selectionner</option>
+                    <option value="">Sélectionnez une personne</option>
                     @foreach ($users as $user)
                         <option value="{{$user->id}}">{{ucfirst($user->prenom)}} {{ucfirst($user->nom)}}</option>
                     @endforeach

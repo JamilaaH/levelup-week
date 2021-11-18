@@ -18,9 +18,12 @@ class User extends Authenticatable
      * @var string[]
      */
     protected $fillable = [
-        'name',
+        'nom',
+        'prenom',
         'email',
         'password',
+        'role_id',
+        'genre_id',
     ];
 
     /**
@@ -66,4 +69,11 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Note::class, 'editeurs', 'user_id');
     }
+
+    
+    public function genre()
+    {
+        return $this->belongsTo(Genre::class);
+    }
+
 }

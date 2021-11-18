@@ -38,7 +38,7 @@
         </main>
     </div>
 </body>
-<script src="{{ asset('ckeditor/ckeditor.js') }}n"></script>
+<script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
 <script src="https://cdn.ckeditor.com/ckeditor5/30.0.0/classic/ckeditor.js"></script>
 
 <script>

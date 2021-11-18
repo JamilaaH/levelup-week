@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [HomeController::class, 'home'])->name('home');
-
+Route::get('/tag/{id}', [HomeController::class, 'showtag'])->name('tag');
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
@@ -53,4 +53,7 @@ Route::middleware(['auth'])->group(function() {
     // bouton J'aime
     Route::post('/like/{id}' , [NoteController::class, 'like'])->name('like');
     Route::delete('/dislike/{id}' , [NoteController::class, 'dislike'])->name('dislike');
+
+    //profil
+    Route::get('/profil', [HomeController::class, 'profil'])->name('profil');
 });

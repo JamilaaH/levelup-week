@@ -7,7 +7,7 @@
     @php
         $route =  Route::currentRouteName();
     @endphp
-    <div class="px-20">
+    <div class="lg:px-20">
         <form action="{{$route == "edit.note" ? route('update.note', $note->id) : route('update.share', $note->id)  }}" method="post"  class="my-5">
             @csrf
             @method('PUT')
